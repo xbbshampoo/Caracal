@@ -520,11 +520,10 @@ function sendConvertedVideo(path, format, size, res) {
                     return;
                 }
 
-
                 console.log("The file " + path + " will be converted to " + format);
 
                 ffmpegWorker.push((callback) => {
-                    var proc = ffmpeg(uploadPath);
+                    var proc = new ffmpeg(uploadPath);
 
                     if (format === 'mp4') {
                         proc.format('mp4')
@@ -538,6 +537,11 @@ function sendConvertedVideo(path, format, size, res) {
                     } else if (format === 'webp') {
                         proc.format('webp')
                             .videoCodec('libwebp_anim')
+                            .addOption('-lossless', '1')
+                            .addOption('-loop', '0')
+                            .addOption('-preset', 'default')
+                            .addOption('-an')
+                            .addOption('-vsync', '0')
                         //.videoBitrate('1024k');
                     }
 
