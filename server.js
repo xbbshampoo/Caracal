@@ -532,17 +532,15 @@ function sendConvertedVideo(path, format, size, res) {
                     } else if (format === 'webm') {
                         proc.format('webm')
                             .videoCodec('libvpx')
-                            //.videoBitrate('1024k')
                             .audioCodec('libvorbis');
                     } else if (format === 'webp') {
                         proc.format('webp')
                             .videoCodec('libwebp_anim')
-                            .addOption('-lossless', '1')
-                            .addOption('-loop', '0')
                             .addOption('-preset', 'default')
+                            .addOption('-loop', '0')
                             .addOption('-an')
                             .addOption('-vsync', '0')
-                        //.videoBitrate('1024k');
+                            .addOption('-qscale', '100');
                     }
 
 
